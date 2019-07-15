@@ -20,12 +20,36 @@ Route::get('/tasks', function () {
 });
 
 Route::post('/tasks', function () {
+
+	$taskCreateValidateRules = [
+        'type' => 'required',
+        'name' => 'required'
+    ];
+
+    $taskCreateValidateMessages = [
+        'type.required' => 'ลงข้อมูล <a style="cursor: pointer;" onclick="document.getElementById(' . "'type'" . ').focus()"><i>ประเภทงาน</i> <b>ด้วย</b></a>',
+        'name.required' => 'ลงข้อมูล <a style="cursor: pointer;" onclick="document.getElementById(' . "'name'" . ').focus()"><i>ชื่องาน</i> <b>ด้วย</b></a>'
+    ];
+    
+
+    request()->validate($taskCreateValidateRules, $taskCreateValidateMessages);
+
+
+
 	$data = request()->all();
 
 	if(request()->has('status')){
 		$data['status'] = true;
 	}
-	// return \App\Task::create($data);
-	return request()->all();
-    return view('tasks.index');
+	\App\Task::create($data);
+	//return request()->all();
+    //return view('tasks.index');
+    return back();
 });
+
+Route::patch('/tasks/{task}', function (\App\Task $task) {
+	$task->update(request()->all());
+    return back();
+});
+
+
