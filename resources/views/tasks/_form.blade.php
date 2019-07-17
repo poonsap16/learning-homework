@@ -14,7 +14,7 @@
     </div>
 @endif
 
-<form class="my-4" action="/tasks" method="POST">
+
     @csrf
 <div class="form-row">
     <!-- type -->
@@ -26,7 +26,7 @@
             <?php $types = (new \App\Task())->getTypes()?>
             @foreach($types as $id => $label)
                 @if($id > 0)
-                <option value=$$id {{ old('type') == $id ? 'selected' : ''}}>{{$label}}</option>
+                <option value="{{ $id }}" {{ old('type', $task->type) == $id ? 'selected' : '' }}>{{ $label }}</option>
                 @endif
             @endforeach
 <!--             <option value="2" {{ old('type') == 2 ? 'selected' : ''}}>Support</option>
@@ -38,20 +38,20 @@
     <!-- name -->
     <div class="form-group col-md-6">
         <label for="name">ซื่องาน</label>
-        <input type="text" class="form-control" id="name" name="name">
+        <input type="text" class="form-control" id="name" name="name" value="{{ old('name', $task->name) }}">
     </div>
 </div>
     <!-- detail -->
     <div class="form-group">
         <label for="detail">รายละเอียด</label>
-        <textarea class="form-control" id="detail" name="detail"></textarea>
+        <textarea class="form-control" id="detail" name="detail">{{ old('detail', $task->detail) }}</textarea>
     </div>
     <!-- status -->
     <div class="form-group">
         <div class="form-check">
-          <input class="form-check-input" type="checkbox" id="status" name="status">
+          <input class="form-check-input" type="checkbox" id="status" name="status" {{ old('status', $task->status) ? 'checked' : '' }}>
           <label class="form-check-label" for="status">Completed</label>
         </div>
     </div>
-    <button type="submit" class="btn btn-primary">Create</button>
+
 </form>

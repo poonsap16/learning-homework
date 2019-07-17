@@ -3,11 +3,13 @@
 @section('title', 'Task Index')
 
 @section('contents')
-<form class="my-4" action="/tasks" method="POST">
+<form class="my-4" action="/tasks/{{ $task->id }}" method="POST">
+    @method('put')
     @include('tasks._form')
     <!-- submit -->
-    <button type="submit" class="btn btn-primary">Create</button>
+    <button type="submit" class="btn btn-primary">Update</button>
 </form>
+
 <h1>Tasks</h1>
 <table class="table">
   <thead class="thead-dark">
