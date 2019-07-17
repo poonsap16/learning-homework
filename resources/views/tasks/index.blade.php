@@ -21,7 +21,7 @@
     <tr>
 
       <th scope="row">{{ $task->id }}</th>
-      <td>{{ $task->type }}</td>
+      <td>{{ $task->getTypeName() }}</td>
       <td>{{ $task->name }}</td>
       <td>{{ $task->detail }}</td>
       <td>{{ $task->status ? 'เสร็จแล้ว' : 'ยังไม่เสร็จ' }}</td>
